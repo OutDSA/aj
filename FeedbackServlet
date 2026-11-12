@@ -1,0 +1,79 @@
+##index.html
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Feedback Form</title>
+</head>
+
+<body>
+
+    <h2>Online Feedback Form</h2>
+
+    <form action="FeedbackServlet" method="post">
+
+        Name:
+        <input type="text" name="name" required>
+        <br><br>
+
+        Email:
+        <input type="email" name="email" required>
+        <br><br>
+
+        Feedback:
+        <textarea name="feedback" required></textarea>
+        <br><br>
+
+        <input type="submit" value="Submit Feedback">
+
+    </form>
+
+</body>
+</html>
+
+##FeedbackServlet
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+@WebServlet("/FeedbackServlet")
+
+public class FeedbackServlet extends HttpServlet {
+
+    protected void doPost(HttpServletRequest request,
+            HttpServletResponse response)
+            throws ServletException, IOException {
+
+        response.setContentType("text/html");
+
+        PrintWriter out = response.getWriter();
+
+        String name = request.getParameter("name");
+
+        String email = request.getParameter("email");
+
+        String feedback = request.getParameter("feedback");
+
+        out.println("<html><body>");
+
+        out.println("<h2>Feedback Submitted Successfully!</h2>");
+
+        out.println("<h3>Feedback Details</h3>");
+
+        out.println("<p>Name: " + name + "</p>");
+
+        out.println("<p>Email: " + email + "</p>");
+
+        out.println("<p>Feedback: " + feedback + "</p>");
+
+        out.println("</body></html>");
+
+        out.close();
+    }
+}
