@@ -1,0 +1,60 @@
+import java.util.*;
+
+class Student {
+    int id;
+    String name;
+    int marks;
+
+    Student(int id, String name, int marks) {
+        this.id = id;
+        this.name = name;
+        this.marks = marks;
+    }
+
+    void display() {
+        System.out.println(id + " " + name + " " + marks);
+    }
+}
+
+public class StudentDemo {
+    public static void main(String[] args) {
+
+        ArrayList<Student> list = new ArrayList<>();
+        HashMap<Integer, Student> map = new HashMap<>();
+
+        // Add students
+        Student s1 = new Student(1, "Rahul", 85);
+        Student s2 = new Student(2, "Amit", 90);
+
+        list.add(s1);
+        list.add(s2);
+
+        map.put(s1.id, s1);
+        map.put(s2.id, s2);
+
+        // Display students using Iterator
+        System.out.println("Student Records:");
+
+        Iterator<Student> it = list.iterator();
+
+        while (it.hasNext()) {
+            it.next().display();
+        }
+
+        // Search student
+        System.out.println("\nSearch Student:");
+
+        Student s = map.get(1);
+
+        if (s != null) {
+            s.display();
+        }
+
+        // Update student
+        s.marks = 95;
+
+        System.out.println("\nAfter Update:");
+
+        s.display();
+    }
+}
