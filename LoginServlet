@@ -1,0 +1,85 @@
+##pom.xml
+
+<dependencies>
+
+    <dependency>
+        <groupId>jakarta.servlet</groupId>
+        <artifactId>jakarta.servlet-api</artifactId>
+        <version>6.0.0</version>
+        <scope>provided</scope>
+    </dependency>
+
+</dependencies>
+
+##index.html
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Page</title>
+</head>
+
+<body>
+
+    <h2>Login Form</h2>
+
+    <form action="LoginServlet" method="post">
+
+        Username:
+        <input type="text" name="username" required>
+        <br><br>
+
+        Password:
+        <input type="password" name="password" required>
+        <br><br>
+
+        <input type="submit" value="Login">
+
+    </form>
+
+</body>
+</html>
+
+##LoginServlet
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+@WebServlet("/LoginServlet")
+
+public class LoginServlet extends HttpServlet {
+
+    protected void doPost(HttpServletRequest request,
+            HttpServletResponse response)
+            throws ServletException, IOException {
+
+        response.setContentType("text/html");
+
+        PrintWriter out = response.getWriter();
+
+        String username = request.getParameter("username");
+
+        String password = request.getParameter("password");
+
+        if (username.equals("admin") &&
+            password.equals("1234")) {
+
+            out.println("<h2>Login Successful!</h2>");
+
+            out.println("<h3>Welcome " + username + "</h3>");
+
+        } else {
+
+            out.println("<h2>Invalid Username or Password!</h2>");
+
+        }
+
+        out.close();
+    }
+}
