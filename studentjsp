@@ -1,0 +1,53 @@
+##index.html
+
+<html>
+<body>
+
+<h2>Student Information Form</h2>
+
+<form action="student.jsp" method="post">
+
+Roll Number:
+<input type="text" name="roll">
+<br><br>
+
+Name:
+<input type="text" name="name">
+<br><br>
+
+Branch:
+<input type="text" name="branch">
+<br><br>
+
+<input type="submit" value="Submit">
+
+</form>
+
+</body>
+</html>
+
+##student.jsp
+
+<html>
+<body>
+
+<h2>Student Information</h2>
+
+<%
+    String roll = request.getParameter("roll");
+
+    String name = request.getParameter("name");
+
+    String branch = request.getParameter("branch");
+%>
+
+Roll Number: <%= roll %>
+<br><br>
+
+Name: <%= name %>
+<br><br>
+
+Branch: <%= branch %>
+
+</body>
+</html>
