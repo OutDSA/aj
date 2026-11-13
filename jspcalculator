@@ -1,83 +1,98 @@
+##index.jsp
 
-  
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculator Result</title>
+</head>
+<body>
+
+<h2>Calculator Result</h2>
+
+<%
+    String num1 = request.getParameter("number1");
+    String num2 = request.getParameter("number2");
+    String operation = request.getParameter("operation");
+
+    if (num1 != null && num2 != null && operation != null) {
+        try {
+            double a = Double.parseDouble(num1);
+            double b = Double.parseDouble(num2);
+            double result = 0;
+
+            switch (operation) {
+                case "add":
+                    result = a + b;
+                    break;
+
+                case "sub":
+                    result = a - b;
+                    break;
+
+                case "mul":
+                    result = a * b;
+                    break;
+
+                case "div":
+                    if (b == 0) {
+                        out.println("<h3>Cannot divide by zero</h3>");
+                    } else {
+                        result = a / b;
+                        out.println("<h3>Result: " + result + "</h3>");
+                    }
+                    break;
+
+                default:
+                    out.println("<h3>Invalid Operation</h3>");
+            }
+
+            if (!operation.equals("div")) {
+                out.println("<h3>Result: " + result + "</h3>");
+            }
+
+        } catch (Exception e) {
+            out.println("<h3>Invalid Input</h3>");
+        }
+    }
+%>
+
+</body>
+</html>
+
+## index.html
+
+<!DOCTYPE html>
 <html>
 <head>
     <title>JSP Calculator</title>
 </head>
 <body>
+    <h2>Simple Calculator</h2>
 
-    <h2>JSP Calculator</h2>
-
-    <form method="post">
+    <form action="calculator.jsp" method="post">
 
         Enter First Number:
-        <input type="number" name="n1" step="any" required>
+        <input type="number" name="number1" step="any" required>
         <br><br>
 
         Enter Second Number:
-        <input type="number" name="n2" step="any" required>
+        <input type="number" name="number2" step="any" required>
         <br><br>
 
         Select Operation:
-        <select name="operator">
-            <option value="+">Addition</option>
-            <option value="-">Subtraction</option>
-            <option value="*">Multiplication</option>
-            <option value="/">Division</option>
+        <select name="operation">
+            <option value="add">Addition (+)</option>
+            <option value="sub">Subtraction (-)</option>
+            <option value="mul">Multiplication (*)</option>
+            <option value="div">Division (/)</option>
         </select>
         <br><br>
 
         <input type="submit" value="Calculate">
+        <input type="reset" value="Reset">
 
     </form>
-
-    <%
-        String num1 = request.getParameter("n1");
-        String num2 = request.getParameter("n2");
-        String op = request.getParameter("operator");
-
-        if(num1 != null && num2 != null && op != null)
-        {
-            double a = Double.parseDouble(num1);
-            double b = Double.parseDouble(num2);
-            double result = 0;
-            boolean valid = true;
-
-            switch(op)
-            {
-                case "+":
-                    result = a + b;
-                    break;
-
-                case "-":
-                    result = a - b;
-                    break;
-
-                case "*":
-                    result = a * b;
-                    break;
-
-                case "/":
-                    if(b == 0)
-                    {
-                        out.println("<h3>Cannot divide by zero!</h3>");
-                        valid = false;
-                    }
-                    else
-                    {
-                        result = a / b;
-                    }
-                    break;
-            }
-
-            if(valid)
-            {
-                out.println("<h3>Result = " + result + "</h3>");
-            }
-        }
-    %>
-
 </body>
 </html>
