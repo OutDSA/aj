@@ -1,0 +1,83 @@
+##index.html
+  
+<%@ page contentType="text/html;charset=UTF-8" %>
+
+<html>
+<head>
+    <title>JSP Calculator</title>
+</head>
+<body>
+
+    <h2>JSP Calculator</h2>
+
+    <form method="post">
+
+        Enter First Number:
+        <input type="number" name="n1" step="any" required>
+        <br><br>
+
+        Enter Second Number:
+        <input type="number" name="n2" step="any" required>
+        <br><br>
+
+        Select Operation:
+        <select name="operator">
+            <option value="+">Addition</option>
+            <option value="-">Subtraction</option>
+            <option value="*">Multiplication</option>
+            <option value="/">Division</option>
+        </select>
+        <br><br>
+
+        <input type="submit" value="Calculate">
+
+    </form>
+
+    <%
+        String num1 = request.getParameter("n1");
+        String num2 = request.getParameter("n2");
+        String op = request.getParameter("operator");
+
+        if(num1 != null && num2 != null && op != null)
+        {
+            double a = Double.parseDouble(num1);
+            double b = Double.parseDouble(num2);
+            double result = 0;
+            boolean valid = true;
+
+            switch(op)
+            {
+                case "+":
+                    result = a + b;
+                    break;
+
+                case "-":
+                    result = a - b;
+                    break;
+
+                case "*":
+                    result = a * b;
+                    break;
+
+                case "/":
+                    if(b == 0)
+                    {
+                        out.println("<h3>Cannot divide by zero!</h3>");
+                        valid = false;
+                    }
+                    else
+                    {
+                        result = a / b;
+                    }
+                    break;
+            }
+
+            if(valid)
+            {
+                out.println("<h3>Result = " + result + "</h3>");
+            }
+        }
+    %>
+
+</body>
+</html>
